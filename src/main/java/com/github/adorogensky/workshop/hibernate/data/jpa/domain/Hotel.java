@@ -17,6 +17,7 @@
 package com.github.adorogensky.workshop.hibernate.data.jpa.domain;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -27,6 +28,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.NaturalId;
 
 @Entity
@@ -53,9 +56,14 @@ public class Hotel implements Serializable {
 	private String zip;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "hotel")
-	private Set<Review> reviews;
+	@Cascade(CascadeType.ALL)
+	private Set<Review> reviews = new HashSet<Review>();
 
 	protected Hotel() {
+	}
+
+	public Long getId() {
+		return id;
 	}
 
 	public Hotel(City city, String name) {
@@ -77,5 +85,9 @@ public class Hotel implements Serializable {
 
 	public String getZip() {
 		return this.zip;
+	}
+
+	public Set<Review> getReviews() {
+		return reviews;
 	}
 }

@@ -34,6 +34,8 @@ public interface HotelService {
 
 	Review addReview(Hotel hotel, ReviewDetails details);
 
+	Review addReview(Long hotelId, Review review);
+
 	ReviewsSummary getReviewSummary(Hotel hotel);
 
 }

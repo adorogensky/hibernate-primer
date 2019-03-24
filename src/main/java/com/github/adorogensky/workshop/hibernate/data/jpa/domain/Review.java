@@ -64,7 +64,7 @@ public class Review implements Serializable {
 	@Column(nullable = false, length = 5000)
 	private String details;
 
-	protected Review() {
+	public Review() {
 	}
 
 	public Review(Hotel hotel, int index, ReviewDetails details) {
@@ -125,5 +125,13 @@ public class Review implements Serializable {
 
 	public void setDetails(String details) {
 		this.details = details;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setHotel(Hotel hotel) {
+		this.hotel = hotel;
 	}
 }

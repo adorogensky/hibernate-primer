@@ -75,6 +75,15 @@ class HotelServiceImpl implements HotelService {
 	}
 
 	@Override
+	public Review addReview(Long hotelId, Review review) {
+		Hotel hotel = hotelRepository.findById(hotelId);
+		hotel.getReviews().add(review);
+		review.setHotel(hotel);
+
+		return review;
+	}
+
+	@Override
 	public ReviewsSummary getReviewSummary(Hotel hotel) {
 		List<RatingCount> ratingCounts = this.hotelRepository.findRatingCounts(hotel);
 		return new ReviewsSummaryImpl(ratingCounts);

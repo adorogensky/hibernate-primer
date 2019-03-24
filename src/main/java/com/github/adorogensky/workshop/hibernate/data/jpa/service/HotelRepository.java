@@ -21,6 +21,7 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.Repository;
 
 import com.github.adorogensky.workshop.hibernate.data.jpa.domain.City;
@@ -28,9 +29,13 @@ import com.github.adorogensky.workshop.hibernate.data.jpa.domain.Hotel;
 import com.github.adorogensky.workshop.hibernate.data.jpa.domain.HotelSummary;
 import com.github.adorogensky.workshop.hibernate.data.jpa.domain.RatingCount;
 
-interface HotelRepository extends Repository<Hotel, Long> {
+interface HotelRepository extends CrudRepository<Hotel, Long> {
 
 	Hotel findByCityAndName(City city, String name);
+
+	Hotel findByName(String name);
+
+	Hotel findById(Long id);
 
 	@Query("select new com.github.adorogensky.workshop.hibernate.data.jpa.domain.HotelSummary(h.city, h.name, avg(r.rating)) "
 			+ "from Hotel h left outer join h.reviews r where h.city = ?1 group by h")

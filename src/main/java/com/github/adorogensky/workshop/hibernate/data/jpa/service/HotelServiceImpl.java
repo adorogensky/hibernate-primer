@@ -34,6 +34,9 @@ import com.github.adorogensky.workshop.hibernate.data.jpa.domain.RatingCount;
 import com.github.adorogensky.workshop.hibernate.data.jpa.domain.Review;
 import com.github.adorogensky.workshop.hibernate.data.jpa.domain.ReviewDetails;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 @Component("hotelService")
 @Transactional
 class HotelServiceImpl implements HotelService {
@@ -41,6 +44,9 @@ class HotelServiceImpl implements HotelService {
 	private final HotelRepository hotelRepository;
 
 	private final ReviewRepository reviewRepository;
+
+	@PersistenceContext
+	private EntityManager entityManager;
 
 	@Autowired
 	public HotelServiceImpl(HotelRepository hotelRepository,
@@ -79,6 +85,16 @@ class HotelServiceImpl implements HotelService {
 		Hotel hotel = hotelRepository.findById(hotelId);
 		hotel.getReviews().add(review);
 		review.setHotel(hotel);
+
+		// This line will not make persistent and review.id WILL NOT be populated
+		//hotelRepository.save(hotel);
+
+		// This line will make the new review object persistent and review.id will be populated
+		//entityManager.persist(hotel);
+
+		// The new review object will be made persistent and review.id will be populated
+
+		System.out.println("entityManager.getFlushMode() = " + entityManager.getFlushMode());
 
 		return review;
 	}

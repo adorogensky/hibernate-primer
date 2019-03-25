@@ -86,12 +86,14 @@ class HotelServiceImpl implements HotelService {
 		hotel.getReviews().add(review);
 		review.setHotel(hotel);
 
-		// This line will not make persistent and review.id WILL NOT be populated
+		// This line will not make the new review object persistent and review.id WILL NOT be populated
 		//hotelRepository.save(hotel);
 
 		// This line will make the new review object persistent and review.id will be populated
 		//entityManager.persist(hotel);
 
+		// This line will not make the new review object persistent and review.id WILL NOT be populated
+		//entityManager.merge(hotel);
 		// The new review object will be made persistent and review.id will be populated
 
 		System.out.println("entityManager.getFlushMode() = " + entityManager.getFlushMode());

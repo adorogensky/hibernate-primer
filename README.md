@@ -1,1 +1,1 @@
-# hibernate-primer
+# Hibernate Training
